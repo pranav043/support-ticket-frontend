@@ -12,9 +12,12 @@
 }
 .filters {
   display: flex;
-  justify-content: start;
+  justify-content: space-between;
   gap: 20px;
   margin-bottom: 20px;
+}
+.filterSpace {
+  margin-left: 10px;
 }
 
 .filters select,

@@ -9,6 +9,7 @@ const Home = () => {
   const [filterValue, setFilterValue] = useState("");
   const [sortBy, setSortBy] = useState("");
   const [sortOrder, setSortOrder] = useState("asc");
+  const [filterOptions, setFilterOptions] = useState({});
 
   useEffect(() => {
     const fetchTickets = async () => {
@@ -22,29 +23,69 @@ const Home = () => {
         setTickets(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
+        alert("Server is down!");
       }
     };
 
     fetchTickets();
   }, [filterType, filterValue, sortBy, sortOrder]);
 
+  useEffect(() => {
+    const fetchFilterOptions = async () => {
+      try {
+        const response = await axios.get(import.meta.env.VITE_GET_FILTERS);
+        setFilterOptions(response.data);
+      } catch (error) {
+        console.error("Error fetching filter options:", error);
+      }
+    };
+
+    fetchFilterOptions();
+  }, []);
+
+  const renderFilterOptions = () => {
+    if (!filterOptions[filterType]) {
+      return null;
+    }
+
+    return filterOptions[filterType].map((option) => (
+      <option key={option._id || option} value={option._id || option}>
+        {option.name || option}
+      </option>
+    ));
+  };
+
+  const handleClearFilters = () => {
+    setFilterType("");
+    setFilterValue("");
+    setSortBy("");
+    setSortOrder("asc");
+  };
+
   return (
     <div className="content-box">
       <h1>Ticket List</h1>
       <div className="filters">
-        <select onChange={(e) => setFilterType(e.target.value)}>
-          <option value="">Select Filter</option>
-          <option value="type">Type</option>
-          <option value="status">Status</option>
-          <option value="assignedTo">Assigned To</option>
-          <option value="severity">Severity</option>
-        </select>
-        <input
-          type="text"
-          placeholder="Filter Value"
-          value={filterValue}
-          onChange={(e) => setFilterValue(e.target.value)}
-        />
+        <div className="filter-container">
+          <select className="filterSpace" onChange={(e) => setFilterType(e.target.value)}>
+            <option value="">Select Filter</option>
+            <option value="type">Type</option>
+            <option value="status">Status</option>
+            <option value="assignedTo">Assigned To</option>
+            <option value="severity">Severity</option>
+          </select>
+          {filterType && (
+            <select
+              className="filterSpace"
+              disabled={!filterType}
+              value={filterValue}
+              onChange={(e) => setFilterValue(e.target.value)}>
+              <option value="">Select Value</option>
+              {renderFilterOptions()}
+            </select>
+          )}
+        </div>
+
         <div className="sort-container">
           <div className="sort-select-wrapper">
             <select className="sort-select" onChange={(e) => setSortBy(e.target.value)}>
@@ -59,6 +100,7 @@ const Home = () => {
               <option value="desc">DESC</option>
             </select>
           </div>
+          <button onClick={handleClearFilters}>Clear Filters</button>
         </div>
       </div>
 
