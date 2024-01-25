@@ -105,37 +105,38 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="ticket-container ">
-        {tickets.map((ticket) => (
-          <div key={ticket._id} className="ticket-card">
-            <div className="ticket-header">
-              <h3 className="ticket-title">{ticket.topic}</h3>
-              <span className="ticket-date">{formatDateTime(ticket.dateCreated)}</span>
-            </div>
-            <p className="ticket-description">
-              <strong>Description:</strong> {ticket.description}
-            </p>
-            <p className="ticket-type">
-              <strong>Type:</strong> {ticket.type}
-            </p>
-            <p className="ticket-assignedTo">
-              <strong>Assigned To:</strong> {ticket.assignedTo || "NA"}
-            </p>
-            <p className="ticket-status">
-              <strong>Status:</strong> {ticket.status}
-            </p>
-            <div className="ticket-footer">
-              <span className={`ticket-severity severity-${ticket.severity.toLowerCase()}`}>
-                {ticket.severity}
-              </span>
-              <span className="ticket-resolved">
-                <strong>Resolved On:</strong>{" "}
-                {ticket.resolvedOn ? formatDateTime(ticket.resolvedOn) : "NA"}
-              </span>
-            </div>
-          </div>
-        ))}
-      </div>
+      <table className="ticket-table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Date Created</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Assigned To</th>
+            <th>Status</th>
+            <th>Severity</th>
+            <th>Resolved On</th>
+          </tr>
+        </thead>
+        <tbody>
+          {tickets.map((ticket) => (
+            <tr key={ticket._id} className="ticket-row">
+              <td>{ticket.topic}</td>
+              <td>{formatDateTime(ticket.dateCreated)}</td>
+              <td>{ticket.description}</td>
+              <td>{ticket.type}</td>
+              <td>{ticket.assignedTo || "NA"}</td>
+              <td>{ticket.status}</td>
+              <td>
+                <span className={`ticket-severity severity-${ticket.severity.toLowerCase()}`}>
+                  {ticket.severity}
+                </span>
+              </td>
+              <td>{ticket.resolvedOn ? formatDateTime(ticket.resolvedOn) : "NA"}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
