@@ -1,20 +1,10 @@
-/* :root {
-  --color-1: #181818;
-  --color-2: #202020;
-  --color-3: #363636;
-  --color-4: #383838;
-  --color-5: #171717;
-  --sidebar-color: black;
-  --sidebar-width: 200px;
-} */
-
 :root {
-  --color-1: #7e6363;
-  --color-2: #a87c7c;
-  --color-3: #503c3c;
-  --color-4: #3e3232;
-  --color-5: #503c3c;
-  --sidebar-color: #a87c7c;
+  --color-1: #ffeaa7;
+  --color-2: #ff6868;
+  --color-3: #141e46;
+  --color-4: #c70039;
+  --color-5: #141e46;
+  --sidebar-color: #ff6868;
   --sidebar-width: 200px;
 }
 

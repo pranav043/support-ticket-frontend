@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { formatDateTime } from "../../utils/dateFormatter";
 
 import "./Home.css";
 
@@ -109,9 +110,7 @@ const Home = () => {
           <div key={ticket._id} className="ticket-card">
             <div className="ticket-header">
               <h3 className="ticket-title">{ticket.topic}</h3>
-              <span className="ticket-date">
-                {new Date(ticket.dateCreated).toLocaleDateString()}
-              </span>
+              <span className="ticket-date">{formatDateTime(ticket.dateCreated)}</span>
             </div>
             <p className="ticket-description">
               <strong>Description:</strong> {ticket.description}
@@ -131,7 +130,7 @@ const Home = () => {
               </span>
               <span className="ticket-resolved">
                 <strong>Resolved On:</strong>{" "}
-                {ticket.resolvedOn ? new Date(ticket.resolvedOn).toLocaleDateString() : "NA"}
+                {ticket.resolvedOn ? formatDateTime(ticket.resolvedOn) : "NA"}
               </span>
             </div>
           </div>

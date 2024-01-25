@@ -70,7 +70,7 @@
 .ticket-title {
   margin: 0;
   font-size: 1.25rem;
-  color: #00fff3;
+  color: #ffeaa7;
 }
 .ticket-date {
   font-size: 0.9rem;
@@ -87,20 +87,21 @@
   padding: 3px 6px;
   border-radius: 4px;
   font-size: 0.8rem;
+  border: 1px solid black;
 }
 .severity-low {
   background: #30b166;
-  color: #0a3d62;
+  color: black;
 }
 
 .severity-medium {
   background: #ff9f43;
-  color: #2d3436;
+  color: black;
 }
 
 .severity-high {
   background: #d63031;
-  color: #ffffff;
+  color: black;
 }
 .ticket-resolved {
   font-size: 0.9rem;

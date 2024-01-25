@@ -38,8 +38,9 @@
 
 .nav-item.active {
   color: #ffffff;
-  background-color: #741746;
+  background-color: #c70039;
   font-weight: bold;
+  border-radius: 10px;
   margin-left: -10px;
   padding: 0 10px;
 }

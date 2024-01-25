@@ -16,20 +16,20 @@ textarea {
   padding: 10px;
   border-radius: 4px;
   font-size: 16px;
-  background-color: #2c2c2c;
+  background-color: #ffeaa7;
   border: none;
-  color: white;
+  color: black;
 }
 
 textarea {
   resize: none;
-  background-color: #2c2c2c;
+  background-color: #ffeaa7;
   border: none;
   outline: none;
   padding: 10px;
   border-radius: 4px;
   font-size: 16px;
-  color: white;
+  color: black;
   min-height: 100px;
   box-shadow: none;
 }
@@ -38,7 +38,7 @@ textarea {
   padding: 8px 20px;
   border: none;
   border-radius: 4px;
-  background-color: #741746;
+  background-color: #c70039;
   color: white;
   cursor: pointer;
   transition: background-color 0.3s;
@@ -61,9 +61,9 @@ select {
   padding: 10px;
   border-radius: 4px;
   font-size: 16px;
-  background-color: #2c2c2c;
+  background-color: #ffeaa7;
   border: none;
-  color: white;
+  color: black;
   outline: none;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -71,7 +71,7 @@ select {
   position: relative;
 }
 select {
-  background-image: url('data:image/svg+xml;utf8,<svg fill="white" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+  background-image: url('data:image/svg+xml;utf8,<svg fill="black" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
   background-repeat: no-repeat;
   background-position: right 10px top 50%;
   background-size: 12px;
