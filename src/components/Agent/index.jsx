@@ -67,6 +67,10 @@ const Agent = () => {
         });
         setErrors({});
       } catch (error) {
+        if (error.code === "ERR_NETWORK") {
+          alert("Server is Down!");
+          return;
+        }
         console.error(
           "Submission error:",
           error.response.data.message ? error.response.data.message : "Error while creating Agent"

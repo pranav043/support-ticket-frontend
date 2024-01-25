@@ -6,30 +6,40 @@ import "./Home.css";
 
 const Home = () => {
   const [tickets, setTickets] = useState([]);
-  const [filterType, setFilterType] = useState("type");
+  const [filterType, setFilterType] = useState("");
   const [filterValue, setFilterValue] = useState("");
   const [sortBy, setSortBy] = useState("");
   const [sortOrder, setSortOrder] = useState("asc");
   const [filterOptions, setFilterOptions] = useState({});
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(5);
+  const [totalItems, setTotalItems] = useState(0);
+
   useEffect(() => {
     const fetchTickets = async () => {
       try {
         const params = {
+          page: currentPage,
+          itemsPerPage: itemsPerPage,
           ...(filterValue && { [filterType]: filterValue }),
           ...(sortBy && { sortBy: sortBy, sortOrder: sortOrder }),
         };
 
         const response = await axios.get(import.meta.env.VITE_GET_TICKETS, { params });
-        setTickets(response.data);
+        setTickets(response.data.tickets);
+        setTotalItems(response.data.count);
       } catch (error) {
+        if (error.code === "ERR_NETWORK") {
+          alert("Server is Down!");
+          return;
+        }
         console.error("Error fetching data:", error);
-        alert("Server is down!");
       }
     };
 
     fetchTickets();
-  }, [filterType, filterValue, sortBy, sortOrder]);
+  }, [currentPage, itemsPerPage, filterType, filterValue, sortBy, sortOrder]);
 
   useEffect(() => {
     const fetchFilterOptions = async () => {
@@ -62,6 +72,17 @@ const Home = () => {
     setSortBy("");
     setSortOrder("asc");
   };
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  const handleItemsPerPageChange = (e) => {
+    setItemsPerPage(parseInt(e.target.value, 10));
+    setCurrentPage(1);
+  };
+
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
 
   return (
     <div className="content-box">
@@ -136,6 +157,45 @@ const Home = () => {
             </tr>
           ))}
         </tbody>
+        <tfoot>
+          <tr>
+            <td colSpan="10">
+              <div className="pagination">
+                <div>
+                  <span>Items per page:</span>
+                  <select value={itemsPerPage} onChange={handleItemsPerPageChange}>
+                    <option value={5}>5</option>
+                    <option value={10}>10</option>
+                    <option value={20}>20</option>
+                  </select>
+                </div>
+
+                <div>
+                  <button
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 1}>
+                    Prev
+                  </button>
+                  <span>{currentPage}</span>
+                  <button
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage === totalPages}>
+                    Next
+                  </button>
+                </div>
+                <div>
+                  <span>{`Showing ${Math.min(
+                    (currentPage - 1) * itemsPerPage + 1,
+                    totalItems
+                  )} - ${Math.min(
+                    currentPage * itemsPerPage,
+                    totalItems
+                  )} of ${totalItems} records`}</span>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tfoot>
       </table>
     </div>
   );

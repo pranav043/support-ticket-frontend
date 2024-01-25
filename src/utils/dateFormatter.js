@@ -1,16 +1,17 @@
 export const formatDateTime = (dateString) => {
-  const options = {
-    day: "numeric",
-    month: "numeric",
-    year: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-    hour12: true,
-  };
+  const date = new Date(dateString);
 
-  const formattedDate = new Date(dateString).toLocaleDateString("en-GB", options);
-  const hours = new Date(dateString).getHours();
-  const amPm = hours >= 12 ? "PM" : "AM";
+  date.setUTCHours(date.getUTCHours() + 5);
+  date.setUTCMinutes(date.getUTCMinutes() + 30);
 
-  return formattedDate.replace(/(am|pm)/i, amPm);
+  const day = date.getUTCDate().toString().padStart(2, "0");
+  const month = (date.getUTCMonth() + 1).toString().padStart(2, "0");
+  const year = date.getUTCFullYear();
+
+  const hours = date.getUTCHours().toString().padStart(2, "0");
+  const minutes = date.getUTCMinutes().toString().padStart(2, "0");
+
+  const formattedDateTime = `${day}/${month}/${year} ${hours}:${minutes}`;
+
+  return formattedDateTime;
 };

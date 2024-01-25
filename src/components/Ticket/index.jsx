@@ -71,6 +71,10 @@ const Ticket = () => {
         });
         setErrors({});
       } catch (error) {
+        if (error.code === "ERR_NETWORK") {
+          alert("Server is Down!");
+          return;
+        }
         console.error(
           "Error Creating Ticket:",
           error.response ? error.response.data.message : "Error while creating Agent"

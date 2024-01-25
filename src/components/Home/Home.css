@@ -125,7 +125,7 @@ th {
 
 thead {
   th {
-    background-color: #c70039;
+    background-color: var(--color-4);
   }
 }
 
@@ -149,5 +149,38 @@ tbody {
         z-index: -1;
       }
     }
+  }
+}
+
+tfoot {
+  .pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: var(--color-4);
+    color: white;
+    border-top: 1px solid var(--color-4);
+  }
+
+  .pagination select,
+  .pagination button {
+    padding: 5px;
+    margin-left: 5px;
+    border: none;
+    background-color: var(--color-1);
+    color: black;
+    cursor: pointer;
+  }
+
+  .pagination span {
+    margin: 5px;
+  }
+  td,
+  tr {
+    padding: 0 !important;
+  }
+  select {
+    background-image: none;
   }
 }
